@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataGridComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
   dataSource = ELEMENT_DATA;
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -18,22 +18,30 @@ export class DataGridComponent implements OnInit {
 
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface GridData {
+  originalDateAdded: string;
+  issuerName: string;
+  esmi: string;
+  equityTicker: string;
+  debtTicker: string;
+  restrictionCategory: string;
+  restrictionType: string;
+  writtenCom: any;
+  alphaCapture: any;
+  trading: any;
+
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+const ELEMENT_DATA: GridData[] = [
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 1', esmi: '123', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'DO', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 2', esmi: '456', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'ADV', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 3', esmi: '789', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'DO', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 4', esmi: '123.3', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'ADV', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 5', esmi: '123.23', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'DO', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 6', esmi: '23423.43', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'ADV', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 7', esmi: '5645.64', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'ADV', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 8', esmi: '545', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'ADV', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 9', esmi: '7656.5', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'DO', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+  {originalDateAdded: '31 Oct 18, 10:34', issuerName: 'Issuer 10', esmi: '454.5', equityTicker: 'ACB', debtTicker: 'HGG', restrictionType: 'DO', restrictionCategory: '', writtenCom: '', alphaCapture: '', trading: ''},
+
 ];
