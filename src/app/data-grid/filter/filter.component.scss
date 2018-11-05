@@ -10,4 +10,15 @@
     .mat-radio-button {
         margin-right: 0.5rem;
     }
+    .action-section{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        button{
+            margin-left: 2rem; 
+        }
+    }
+}
+.mat-expansion-panel-header-description, .mat-expansion-panel-header-title{
+    flex-grow: 2;
 }
