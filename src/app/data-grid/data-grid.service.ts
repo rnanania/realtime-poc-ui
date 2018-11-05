@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import Util from './util';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { GridData } from './grid';
-import { map } from 'rxjs/operators';
-
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -15,38 +12,24 @@ export class DataGridService {
   private insertNotifier  = new BehaviorSubject(null);
   insertNotifier$ = this.insertNotifier.asObservable();
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase) { 
+  constructor(
+    private http: HttpClient, 
+    private db: AngularFireDatabase) { 
   }
 
   //Generate on random data and returns a observable
-  getPRLItem = (): Observable<any> => {
-    return Observable.create( 
+  getPRLItem = (): Observable<any> => Observable.create( 
       observer => {
         observer.next(this.generateRandomGridData(1))
       }
     );
-  }
   
   //Generate n number of Random GridData using the util function
-  generateRandomGridData = (count: number = 1) => {
-    return Array(count)
-    .fill(1)
-    .map(_ => Util.getRandomGridData());
-  }
+  generateRandomGridData = (count: number = 1) => Array(count).fill(1).map(_ => Util.getRandomGridData());
+  
+  getPRLList = () => this.db.list('/').valueChanges();
 
-  getPRLList = () => {
-    return this.db.list('/').
-    // .snapshotChanges()
-    //   .pipe(
-    //     map(
-    //       changes => {
-    //         console.log('list ', changes);
-    //         return changes
-    //       }
-    //     )
-    //   )
-    valueChanges();
-  } 
+  getOnePRLItem = (id) => this.db.object(`/${id}`).valueChanges();
 
   addPRLItem = (count: number = 1) => {
     this.generateRandomGridData(count).forEach(data => {
@@ -62,13 +45,5 @@ export class DataGridService {
     })
   }
 
-  getOnePRLItem = (id) => {
-    return this.db.object(`/${id}`).valueChanges();
-    /* snapshotChanges().pipe(
-      map(res => {
-        console.log('inserted rec ', res.payload.val());
-        this.insertNotifier.next(res.payload.val());
-      })
-    ); */
-  }
+  
 }

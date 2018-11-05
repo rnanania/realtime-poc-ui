@@ -1,50 +1,37 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { DataGridService } from './data-grid.service';
-import { Observable, Subscription } from 'rxjs';
-import { interval } from 'rxjs';
-import { switchMap, startWith, flatMap, take, skip } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { GridData } from './grid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarMessageComponent } from './shared/snackbar-message/snackbar-message.component';
+import Util from './util';
 
 @Component({
   selector: 'app-data-grid',
   templateUrl: './data-grid.component.html',
   styleUrls: ['./data-grid.component.scss']
 })
-export class DataGridComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DataGridComponent implements OnInit, OnDestroy {
 
   // pollInterval: number = 400000;
-  displayedColumns: string[] = ['originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
+  displayedColumns: string[] = ['tier','originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
   dataSource: GridData[] = [];
+  initialLoad: boolean = true;
 
   newItem: GridData;
   newItemSubscription: Subscription = new Subscription();
   itemListSubscription: Subscription = new Subscription();
 
+  constructor(
+    public snackBar: MatSnackBar, 
+    private gridService: DataGridService) {
 
-  constructor(public snackBar: MatSnackBar, private gridService: DataGridService) { 
     //Generate 10 random data on page load using the randomData generator utility
     // this.dataSource = this.gridService.generateRandomGridData(50);
-
-    this.itemListSubscription = this.gridService.getPRLList()
-    .pipe(
-      take(1)
-    )
-    .subscribe((items: GridData[]) => {
-      this.dataSource = items;
-    });
-
-    this.newItemSubscription = this.gridService.getPRLList()
-    .pipe(
-      skip(1)
-    )
-    .subscribe(
-      (items: GridData[]) => {
-        this.dataSource = items
-        this.openSnackBar(items)
-      }
-    );
+  
+    this.getList();
+    
   }
 
   ngOnInit() {
@@ -56,19 +43,22 @@ export class DataGridComponent implements OnInit, OnDestroy, AfterViewInit {
     // })
   }
   
-  ngAfterViewInit() {
-    
-  }
-  //poll the getPRLItem service to get one random generated DataGrid item
-  // getPRLItem = () => {
-  //   return interval(this.pollInterval).pipe(
-  //     switchMap(() => this.gridService.getPRLItem())
-  //   )
-  // }
-
   ngOnDestroy() {
     if(this.newItemSubscription) this.newItemSubscription.unsubscribe();
     if(this.itemListSubscription) this.itemListSubscription.unsubscribe();
+  }
+
+  getList = () => {
+    this.newItemSubscription = this.gridService.getPRLList()
+      .subscribe(
+        (items: GridData[]) => {
+          this.dataSource = [...items];
+          if(!this.initialLoad) {
+            this.openSnackBar(items)          
+          }
+          if(this.initialLoad) this.initialLoad = false;
+        }
+      );
   }
 
   openSnackBar(data: any) {
@@ -78,6 +68,20 @@ export class DataGridComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
+  applyFilter = (filters: any) => {
+    if(filters){
+      this.dataSource = <GridData[]>[...Util.multiFilter(this.dataSource, filters)];    
+    }else {
+      this.getList();
+    }
+  }
+
+  //poll the getPRLItem service to get one random generated DataGrid item
+  // getPRLItem = () => {
+  //   return interval(this.pollInterval).pipe(
+  //     switchMap(() => this.gridService.getPRLItem())
+  //   )
+  // }
 }
 
 
