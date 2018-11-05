@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { GridData } from '../../grid';
 
 @Component({
@@ -8,8 +8,8 @@ import { GridData } from '../../grid';
   styleUrls: ['./snackbar-message.component.scss']
 })
 export class SnackbarMessageComponent implements OnInit {
-  
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: GridData) { }
+
+  constructor(public snackBarRef: MatSnackBarRef<SnackbarMessageComponent>/* , @Inject(MAT_SNACK_BAR_DATA) public data: GridData */) { }
 
   ngOnInit() {
   }

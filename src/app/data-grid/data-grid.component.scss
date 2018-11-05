@@ -5,7 +5,7 @@ table {
         &.mat-header-row {
             // background: #673ab7;
             .mat-header-cell{
-                color: #007eb6;
+                // color: #007eb6;
                 text-transform: uppercase;
             }
         }
@@ -14,3 +14,6 @@ table {
 .newitem-card{
     margin-bottom: 2rem;
 }
+
+//mat-expansion-panel-content ng-trigger ng-trigger-bodyExpansion
+

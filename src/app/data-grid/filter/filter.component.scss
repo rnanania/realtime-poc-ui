@@ -1,0 +1,13 @@
+.panel-header {
+    // background: #68EFAD;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    .mat-form-field {
+        margin: 1rem 0 0;
+    }
+    .mat-radio-button {
+        margin-right: 0.5rem;
+    }
+}

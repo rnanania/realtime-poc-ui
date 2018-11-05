@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+.filter-panel {
+    .mat-expansion-panel-body {
+        padding-top: 1rem;
+        background: rgba(103, 58, 183, 0.1);
+    }
+}

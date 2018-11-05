@@ -7,7 +7,7 @@ export default class Util {
         let filters = {
               equityTicker: ["CAD", "GHS"],
             } 
-    */;
+    */
     static  multiFilter = (arr: Object[], filters: Object) => {
         const filterKeys = Object.keys(filters);
         return arr.filter(eachObj => {
@@ -23,12 +23,12 @@ export default class Util {
     //Generate Random Faker data using the faker library
     static getRandomGridData = () => {
         return {
-            originalDateAdded: faker.date.past(),
+            originalDateAdded: faker.date.past().toJSON(),
             issuerName: faker.company.companyName(),
             esmi: faker.random.number(),
             equityTicker: faker.finance.currencyCode(),
             debtTicker: faker.finance.currencyCode(),
-            restrictionType: faker.system.fileExt(),
+            restrictionType: faker.commerce.color(),
             restrictionCategory: faker.random.word(),
             writtenCom: faker.random.word(),
             alphaCapture: faker.random.word(),
