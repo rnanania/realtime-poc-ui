@@ -162,9 +162,9 @@
   ## Running the app locally
 
   ```
-  npm run start
+  npm start
   ```
-
+  
 
   ## License
 

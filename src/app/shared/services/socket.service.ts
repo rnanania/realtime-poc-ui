@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { Observable, Observer } from 'rxjs';
 
-import * as socketIO from 'socket.io-client';
+import io from 'socket.io-client';
 const SERVER_URL = 'http://localhost:3000';
 
 import { Restriction } from '../model/restriction';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SocketService {
   private socket;
 
   public initSocket() {
-    this.socket = socketIO(SERVER_URL);
+    this.socket = io(SERVER_URL);
   }
 
   public send(): void{

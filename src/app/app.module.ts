@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { 
+import {
   MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
@@ -40,14 +40,16 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataGridComponent } from './data-grid/data-grid.component';
-import { SnackbarMessageComponent } from './data-grid/shared/snackbar-message/snackbar-message.component';
-import { FilterComponent } from './data-grid/filter/filter.component';
+
+import { RestrictionListComponent } from './restriction-list/restriction-list.component';
+import { FilterComponent } from './restriction-list/filter/filter.component';
+
+import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
+
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AddItemComponent } from './add-item/add-item.component';
 
 const matModules = [
   MatAutocompleteModule,
@@ -89,10 +91,9 @@ const matModules = [
   ],
   declarations: [
     AppComponent,
-    DataGridComponent,
+    RestrictionListComponent,
     SnackbarMessageComponent,
-    FilterComponent,
-    AddItemComponent
+    FilterComponent
   ],
   imports: [
     BrowserModule,

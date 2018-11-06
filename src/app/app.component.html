@@ -4,6 +4,9 @@
   </span>
   <span>Some-Kind-Of List</span>
   <span class="example-spacer"></span>
+  <span class="nav-icon" (click)="addRestriction()">
+    <mat-icon label="Add Restriction">add_alert</mat-icon>
+  </span>
   <span>
     <button mat-button [matMenuTriggerFor]="menu" class="menu-item">Policies & Matrices</button>
     <mat-menu #menu="matMenu">
@@ -15,7 +18,7 @@
     <button mat-button [matMenuTriggerFor]="help" class="menu-item">Help</button>
     <mat-menu #help="matMenu">
       <mat-list>
-        <mat-list-item>London 
+        <mat-list-item>London
           <span class="phone-number">
             +99 0123 456 7890
           </span>
@@ -41,10 +44,8 @@
       </mat-list>
     </mat-menu>
   </span>
-  <span class="user-face">
-    <!-- <button mat-button [matMenuTriggerFor]="user" > -->
-        <mat-icon>face</mat-icon>
-    <!-- </button> -->
+  <span class="nav-icon">
+    <mat-icon>face</mat-icon>
   </span>
 </mat-toolbar>
 <router-outlet></router-outlet>
