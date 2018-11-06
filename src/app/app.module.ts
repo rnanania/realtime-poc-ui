@@ -37,12 +37,12 @@ import {
   MatStepperModule,
 } from '@angular/material';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { RestrictionListComponent } from './restriction-list/restriction-list.component';
 import { FilterComponent } from './restriction-list/filter/filter.component';
+import { AddRestrictionComponent } from './add-restriction/add-restriction.component';
 
 import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
 
@@ -93,7 +93,8 @@ const matModules = [
     AppComponent,
     RestrictionListComponent,
     SnackbarMessageComponent,
-    FilterComponent
+    FilterComponent,
+    AddRestrictionComponent
   ],
   imports: [
     BrowserModule,
