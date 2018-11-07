@@ -3,14 +3,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Restriction } from '../shared/model/restriction';
 import { RestrictionListService } from '../shared/services/restriction.list.service';
 import { Subscription } from 'rxjs';
-import Util from './util';
+import Util from '../shared/utils/util';
 
 @Component({
-  selector: 'app-restriction-list',
-  templateUrl: './restriction-list.component.html',
-  styleUrls: ['./restriction-list.component.scss']
+  selector: 'app-restriction-list-wj',
+  templateUrl: './restriction-list-wj.component.html',
+  styleUrls: ['./restriction-list-wj.component.scss']
 })
-export class RestrictionListComponent implements OnInit, OnDestroy {
+export class RestrictionListWjComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['tier','originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
   dataSource: Restriction[] = [];

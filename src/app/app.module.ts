@@ -37,19 +37,19 @@ import {
   MatStepperModule,
 } from '@angular/material';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { RestrictionListComponent } from './restriction-list/restriction-list.component';
-import { FilterComponent } from './restriction-list/filter/filter.component';
-import { AddRestrictionComponent } from './add-restriction/add-restriction.component';
-
-import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
-
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { RestrictionListWjComponent } from './restriction-list-wj/restriction-list-wj.component';
+import { FilterComponent } from './restriction-list-wj/filter/filter.component';
+import { AddRestrictionComponent } from './add-restriction/add-restriction.component';
+import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
+import { RestrictionListFbComponent } from './restriction-list-fb/restriction-list-fb.component';
 
 const matModules = [
   MatAutocompleteModule,
@@ -91,10 +91,11 @@ const matModules = [
   ],
   declarations: [
     AppComponent,
-    RestrictionListComponent,
+    RestrictionListWjComponent,
     SnackbarMessageComponent,
     FilterComponent,
-    AddRestrictionComponent
+    AddRestrictionComponent,
+    RestrictionListFbComponent
   ],
   imports: [
     BrowserModule,
