@@ -1,0 +1,27 @@
+.card-container {
+    .example-card{
+        // max-width: 260px;
+        margin: 1rem;       
+    }
+    .image{
+        max-height: 200px;
+    }
+    .example-header-image {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        box-shadow: 2px 1px 4px 1px rgba(0, 0, 0, 0.45);
+        &.cv1 {
+            background-image: url('../../assets/images/cv1.jpg');
+            background-size: cover;
+        }
+        &.cv2 {
+            background-image: url('../../assets/images/cv2.jpg');
+            background-size: cover;
+        }
+        &.cv3 {
+            background-image: url('../../assets/images/cv3.jpg');
+            background-size: cover;
+        }
+    }
+}
