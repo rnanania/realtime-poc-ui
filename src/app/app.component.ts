@@ -18,7 +18,7 @@ import { SocketService } from './shared/services/socket.service';
 export class AppComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
-  navItems: Array<any> = [{page: 'Nav Link 1', icon: 'bug_report'}, {page: 'Nav Link 2', icon: 'spa'}, {page: 'Nav Link 3', icon: 'beach_access'}];
+  navItems: Array<any> = [{page: 'Home', icon: 'home'}, {page: 'Nav Link 2', icon: 'spa'}, {page: 'Nav Link 3', icon: 'beach_access'}];
   private _mobileQueryListener: () => void;
 
 
