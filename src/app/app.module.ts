@@ -39,6 +39,14 @@ import {
   MatStepperModule,
 } from '@angular/material';
 
+
+/* Wijmo related Import */
+import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
+import { WjInputModule } from 'wijmo/wijmo.angular2.input';
+import { WjGridDetailModule } from 'wijmo/wijmo.angular2.grid.detail';
+import { WjCoreModule } from 'wijmo/wijmo.angular2.core';
+
+
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -114,7 +122,8 @@ const matModules = [
     matModules,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    WjGridModule, WjInputModule, WjGridDetailModule, WjCoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

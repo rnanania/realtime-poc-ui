@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+
+// Wijmo imports
+import * as wjcCore from 'wijmo/wijmo';
+import * as wjcGrid from 'wijmo/wijmo.grid';
+
+import { FlexGrid } from 'wijmo/wijmo.grid';
+import { FlexGridFilter } from 'wijmo/wijmo.grid.filter';
 
 import { Restriction } from '../shared/model/restriction';
 import { RestrictionListService } from '../shared/services/restriction.list.service';
@@ -10,7 +17,7 @@ import Util from '../shared/utils/util';
   templateUrl: './restriction-list-wj.component.html',
   styleUrls: ['./restriction-list-wj.component.scss']
 })
-export class RestrictionListWjComponent implements OnInit, OnDestroy {
+export class RestrictionListWjComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns: string[] = ['tier','originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
   dataSource: Restriction[] = [];
@@ -18,6 +25,7 @@ export class RestrictionListWjComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   itemListSubscription: Subscription = new Subscription();
 
+  private flexGridFilter: FlexGridFilter;
   constructor(private restrictionListService: RestrictionListService) {}
 
   ngOnInit() {
@@ -28,6 +36,13 @@ export class RestrictionListWjComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Unsubscribe things here.
     if(this.itemListSubscription) this.itemListSubscription.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    // Hide Wijmo wijmoLicense tooltip.
+    const allDivs =  document.getElementsByTagName('div');
+    let wijmoLicense = allDivs[allDivs.length - 1];
+    wijmoLicense.style.display = 'none';
   }
 
   getRestrictionList = () => {
@@ -43,5 +58,11 @@ export class RestrictionListWjComponent implements OnInit, OnDestroy {
     }else {
       this.getRestrictionList();
     }
+  }
+
+  initGrid(grid: FlexGrid) {
+    grid.columnHeaders.rows.defaultSize = 40;
+    grid.rows.defaultSize = 30;
+    this.flexGridFilter = new FlexGridFilter(grid);
   }
 }
