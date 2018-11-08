@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -41,7 +43,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
+import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -50,6 +52,8 @@ import { FilterComponent } from './restriction-list-wj/filter/filter.component';
 import { AddRestrictionComponent } from './add-restriction/add-restriction.component';
 import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
 import { RestrictionListFbComponent } from './restriction-list-fb/restriction-list-fb.component';
+import { HomeComponent } from './home/home.component';
+import { SearchBoxComponent } from './shared/components/search-box/search-box.component';
 
 const matModules = [
   MatAutocompleteModule,
@@ -95,7 +99,9 @@ const matModules = [
     SnackbarMessageComponent,
     FilterComponent,
     AddRestrictionComponent,
-    RestrictionListFbComponent
+    RestrictionListFbComponent,
+    HomeComponent,
+    SearchBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +110,7 @@ const matModules = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     matModules,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

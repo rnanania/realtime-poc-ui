@@ -1,74 +1,60 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { interval } from 'rxjs';
-import { switchMap, startWith, flatMap, take, skip } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DataGridService } from './data-grid.service';
 import { Restriction } from '../shared/model/restriction';
 import { SnackbarMessageComponent } from '../shared/components/snackbar-message/snackbar-message.component';
 
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import Util from '../shared/utils/util';
+
 @Component({
   selector: 'app-restriction-list-fb',
   templateUrl: './restriction-list-fb.component.html',
   styleUrls: ['./restriction-list-fb.component.scss']
 })
-export class RestrictionListFbComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RestrictionListFbComponent implements OnInit, OnDestroy {
+
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;   
   // pollInterval: number = 400000;
-  displayedColumns: string[] = ['originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
-  dataSource: Restriction[] = [];
+  displayedColumns: string[] = ['tier','originalDateAdded', 'issuerName', 'esmi', 'equityTicker', 'debtTicker', 'restrictionType', 'restrictionCategory'];
+  dataSource;
+  initialLoad: boolean = true;
 
   newItem: Restriction;
   newItemSubscription: Subscription = new Subscription();
   itemListSubscription: Subscription = new Subscription();
 
-
-  constructor(public snackBar: MatSnackBar, private gridService: DataGridService) {
-    //Generate 10 random data on page load using the randomData generator utility
-    // this.dataSource = this.gridService.generateRandomGridData(50);
-
-    this.itemListSubscription = this.gridService.getPRLList()
-    .pipe(
-      take(1)
-    )
-    .subscribe((items: Restriction[]) => {
-      this.dataSource = items;
-    });
-
-    this.newItemSubscription = this.gridService.getPRLList()
-    .pipe(
-      skip(1)
-    )
-    .subscribe(
-      (items: Restriction[]) => {
-        this.dataSource = items
-        this.openSnackBar(items)
-      }
-    );
+  constructor(
+    public snackBar: MatSnackBar, 
+    private gridService: DataGridService) {
+      this.getList();
   }
 
   ngOnInit() {
-    //Add the newly generated DataGrid item to dataSource property
-    // this.newItemSubscription = this.getPRLItem().subscribe((data: GridData[]) => {
-    //   this.newItem = data[0];
-    //   this.openSnackBar(this.newItem);
-    //   this.dataSource = [...this.dataSource, this.newItem];
-    // })
+    
   }
-
-  ngAfterViewInit() {
-
-  }
-  //poll the getPRLItem service to get one random generated DataGrid item
-  // getPRLItem = () => {
-  //   return interval(this.pollInterval).pipe(
-  //     switchMap(() => this.gridService.getPRLItem())
-  //   )
-  // }
-
+  
   ngOnDestroy() {
     if(this.newItemSubscription) this.newItemSubscription.unsubscribe();
     if(this.itemListSubscription) this.itemListSubscription.unsubscribe();
+  }
+
+  getList = () => {
+    this.newItemSubscription = this.gridService.getPRLList()
+      .subscribe(
+        (items: Restriction[]) => {
+          this.dataSource = new MatTableDataSource([...items]);
+          this.dataSource.paginator = this.paginator;
+          if(!this.initialLoad) {
+            this.openSnackBar(items)          
+          }
+          if(this.initialLoad) this.initialLoad = false;
+        }
+      );
   }
 
   openSnackBar(data: any) {
@@ -76,6 +62,14 @@ export class RestrictionListFbComponent implements OnInit, OnDestroy, AfterViewI
       data: data,
       duration: 2500
     })
+  }
+
+  applyFilter = (filters: any) => {
+    if(filters){
+      this.dataSource = [...Util.multiFilter(this.dataSource.data, filters)];    
+    }else {
+      this.getList();
+    }
   }
 
 }

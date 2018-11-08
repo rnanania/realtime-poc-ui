@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarMessageComponent } from './shared/components/snackbar-message/snackbar-message.component';
@@ -15,6 +16,12 @@ import { SocketService } from './shared/services/socket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  mobileQuery: MediaQueryList;
+  navItems: Array<any> = [{page: 'Home', icon: 'home'}, {page: 'Nav Link 2', icon: 'spa'}, {page: 'Nav Link 3', icon: 'beach_access'}];
+  private _mobileQueryListener: () => void;
+
+
   title = 'realtime-poc-ui';
   ioConnection: any = null;
 
@@ -22,11 +29,16 @@ export class AppComponent implements OnInit {
     public snackBar: MatSnackBar,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private socketService: SocketService){
+    private socketService: SocketService,
+    changeDetectorRef: ChangeDetectorRef, 
+    media: MediaMatcher){
     this.matIconRegistry.addSvgIcon(
       `angular_icon`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/angular-white-transparent.svg`)
     );
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   ngOnInit() {
@@ -53,5 +65,6 @@ export class AppComponent implements OnInit {
 
   ngOnDestroy() {
     if(this.ioConnection) this.ioConnection.unsubscribe();
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 }

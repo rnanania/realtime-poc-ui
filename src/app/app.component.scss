@@ -20,7 +20,7 @@
     }
 
 }
-.nav-icon {
+.nav-icon, .user-face {
     border: 1px solid;
     display: flex;
     border-radius: 50%;
@@ -28,6 +28,7 @@
     box-shadow: inset 3px 3px 4px #000;
     cursor: pointer;
 }
+
 .logo {
     display: flex;
     justify-content: center;
@@ -37,4 +38,15 @@
         height: 3.5rem;
         width: 3.5rem;
     }
+}
+.app-container {
+    height: 100%;
+    // width: 100%;
+    // min-width: 100%;
+    // min-height: 100%;
+    // margin: 0;
+}
+.mat-sidenav-container {
+    // background: #fff;
+    height: calc(100% - 0.01px);
 }

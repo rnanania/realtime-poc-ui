@@ -2,17 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import Util from '../shared/utils/util';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { map } from 'rxjs/operators';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataGridService {
-
-  private insertNotifier  = new BehaviorSubject(null);
-  insertNotifier$ = this.insertNotifier.asObservable();
 
   constructor(private http: HttpClient, private db: AngularFireDatabase) {
   }
@@ -34,17 +30,7 @@ export class DataGridService {
   }
 
   getPRLList = () => {
-    return this.db.list('/').
-    // .snapshotChanges()
-    //   .pipe(
-    //     map(
-    //       changes => {
-    //         console.log('list ', changes);
-    //         return changes
-    //       }
-    //     )
-    //   )
-    valueChanges();
+    return this.db.list('/').valueChanges();
   }
 
   addPRLItem = (count: number = 1) => {
@@ -53,7 +39,7 @@ export class DataGridService {
         (result: any) => {
           this.getOnePRLItem(result.key).subscribe(
             newItem => {
-              this.insertNotifier.next(newItem);
+              // this.insertNotifier.next(newItem);
             }
           );
         }
@@ -63,11 +49,5 @@ export class DataGridService {
 
   getOnePRLItem = (id) => {
     return this.db.object(`/${id}`).valueChanges();
-    /* snapshotChanges().pipe(
-      map(res => {
-        console.log('inserted rec ', res.payload.val());
-        this.insertNotifier.next(res.payload.val());
-      })
-    ); */
   }
 }
